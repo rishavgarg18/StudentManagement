@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>STUDENT HOME</title>
+
+	<style type="text/css">
+
+        table {
+  width: 100%;
+}
+
+th {
+    background-color: #4CAF50;
+  color: white;
+
+  height: 50px;
+} 
+td:nth-child(1)
+{
+  background-color: #FF4019;
+  color:white;
+}
+  th, td {
+  border-bottom: 1px solid #ddd;
+}
+tr{
+    height: 30px;
+}  
+tr:hover {height: 60px;
+    background-color: #4CAF50;}
+
+	.addbutton {
+     background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 550px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.addbutton1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+}
+
+.addbutton1:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+		.logbutton {
+     background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 1px 1150px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.logbutton1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #f44336;
+}
+
+.logbutton1:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+
+
+	</style>
+
+
+
+<body>
+
+	<h1 style="color: #4CAF50">WELCOME STUDENT</h1>
+	<button class="logbutton logbutton1" onclick="logout()">Logout</button>
+
+	<h1 style="color: #4CAF50">YOUR DETAILS:</h1>
+  
+
+
+      <table border=1 id='list-wrapper'>
+        
+         
+    <tr>
+        <th>USERNAME</th>
+        
+
+        <th>FIRSTNAME</th>
+        
+    
+        <th>LASTNAME</th>
+
+        <th>ROLLNO</th>
+
+        <th>FATHER NAMEh>
+
+        <th>EMAIL</th>
+
+        <th>SECTION</th>
+
+        <th>BRANCH</th>
+
+        <th>PHONE NO.</th>
+
+        <th>STATUS</th>
+        
+        
+    </tr>
+
+        
+      </table>
+
+      <h1 style="color: #4CAF50">YOUR QUERIES</h1>
+
+      <table border=1 id='query-wrapper'>
+        
+         
+    <tr>
+        <th>ID</th>
+        
+
+        <th>QUERY</th>
+        
+    
+        <th>STATUS</th>
+
+        <th>DATE</th>
+
+        <th>ANSWER<h>
+
+        
+        
+    </tr>
+
+        
+      </table>
+<button class="addbutton addbutton1" onclick="window.location.href='query/addquery.html'">Raise Query</button>
+      
+        
+    
+
+</body>
+<script>
+        var login=sessionStorage.getItem("login");
+        var id=sessionStorage.getItem("idstudent");
+        if(login=="success")
+            {	buildList();
+              buildQuery();
+            		console.log(id);
+			        console.log(login);
+ 
+			}
+		else
+			{
+    				window.location.href="loginstudent.html";
+			}
+
+
+
+    
+
+        
+  
+  
+
+    function buildList(){
+      var wrapper = document.getElementById('list-wrapper')
+
+
+
+        
+var xmlhttp, myObj;
+
+xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    myObj = JSON.parse(this.responseText);
+    var list = myObj;
+    console.log(list);
+    var item=`
+    <tr>
+    <td>
+     ${list[0].user_name}
+     </td>
+     
+   
+     <td>
+     ${list[0].first_name}
+     </td>
+     
+      
+      
+     <td>
+     ${list[0].last_name}
+     </td>
+
+     <td>
+     ${list[0].roll_no}
+     </td>
+
+     <td>
+     ${list[0].father_name}
+     </td>
+
+     <td>
+     ${list[0].email}
+     </td>
+
+     <td>
+     ${list[0].section}
+     </td>
+
+     <td>
+     ${list[0].branch}
+     </td>
+
+     <td>
+     ${list[0].phone_no}
+     </td>
+
+
+     <td>
+     ${list[0].status}
+     </td>
+
+     </tr>
+	     
+     
+     `
+
+     wrapper.innerHTML += item
+    
+  
+
+            
+              
+           
+        }
+
+};
+xmlhttp.open("GET", "http://127.0.0.1:8000/student/"+id+"/", true);
+xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xmlhttp.send();
+}
+ 
+
+    function buildQuery(){
+      var wrapper1 = document.getElementById('query-wrapper')
+
+
+
+        
+var xmlhttp, myObj;
+
+xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    myObj = JSON.parse(this.responseText);
+    var list = myObj;
+    console.log(list);
+    for (var i in list){
+    var item=`
+    <tr>
+    <td>
+     ${list[i].id}
+     </td>
+     
+   
+     <td>
+     ${list[i].query}
+     </td>
+     
+      
+      
+     <td>
+     ${list[i].status}
+     </td>
+
+     <td>
+     ${list[i].date}
+     </td>
+
+     <td>
+     ${list[i].answer}
+     </td>
+
+    
+     </tr>
+       
+     
+     `
+
+     wrapper1.innerHTML += item
+    
+  
+
+            
+              
+           }
+        }
+
+};
+xmlhttp.open("GET", "http://127.0.0.1:8000/student/viewquery/"+id+"/", true);
+xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xmlhttp.send();
+}   
+
+function logout()
+{
+    sessionStorage.setItem("login","failed");
+    window.location.href="loginstudent.html";
+
+}
+</script>
+
+
+	
+</head>
+
+
+
+
+</html>
+
+
+
+
+
+
+

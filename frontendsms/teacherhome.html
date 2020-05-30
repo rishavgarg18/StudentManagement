@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+  <style type="text/css">
+
+    table {
+  width: 100%;
+}
+
+th {
+    background-color: #4CAF50;
+  color: white;
+
+  height: 50px;
+} 
+td:nth-child(1)
+{
+  background-color: #FF4019;
+  color:white;
+}
+  th, td {
+  border-bottom: 1px solid #ddd;
+}
+tr{
+    height: 30px;
+}  
+tr:hover {height: 60px;
+    background-color: #4CAF50;}
+
+
+.addbutton {
+     background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 550px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.addbutton1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+}
+
+.addbutton1:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+.logbutton {
+     background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 1100px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.logbutton1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #f44336;
+}
+
+.logbutton1:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+
+</style>
+<body>
+    <h2 style="text-align: center">WELCOME TEACHER</h2>
+<button class="logbutton logbutton1" onclick="logout()">Logout</button>
+
+
+              
+  <div class="container">
+
+
+      <table  id='list-wrapper'>
+        <tr>
+          <th>USERNAME</th>
+          <th>ROLL NO</th>
+          <th>FATHER NAME</th>
+          <th>EMAIL</th>
+          <th>SECTION</th>
+          <th>BRANCH</th>
+          <th>PHONE NO.</th>
+
+
+
+        </tr>
+        
+      </table>
+      
+        
+    
+
+  </div>
+  <button class="addbutton addbutton1" onclick="window.location.href='addstudent'">Add Student</button>
+
+  <button class="addbutton addbutton1" onclick="window.location.href='query'">Answer Queries</button>
+
+</body>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    
+
+        
+  
+  <script type="text/javascript">
+  
+
+    function buildList(){
+      var wrapper = document.getElementById('list-wrapper')
+
+
+
+        
+var xmlhttp, myObj;
+
+xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    myObj = JSON.parse(this.responseText);
+    var list = myObj;
+    console.log(list);
+
+    
+    for (var i in list){
+    var item = `
+            <tr id="data-row-${i}" >
+              <td>
+                ${list[i].user_name}
+              </td>
+
+            
+              <td>
+                ${list[i].roll_no}
+              </td>
+
+              <td>
+                ${list[i].father_name}
+              </td>
+
+              <td>
+                ${list[i].email}
+              </td>
+
+              <td>
+                ${list[i].section}
+              </td>
+
+              <td>
+                ${list[i].branch}
+              </td>
+
+              <td>
+                ${list[i].phone_no}
+              </td>
+
+            
+              
+              <td>
+                <button class="btn btn-sm btn-outline-info edit">Edit </button>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-outline-dark delete">-</button>
+              </td>
+            </tr>
+
+          `
+          wrapper.innerHTML += item
+  
+        }
+
+
+        for (var i in list){
+          
+          var deleteBtn = document.getElementsByClassName('delete')[i]
+          var editBtn = document.getElementsByClassName('edit')[i]
+          
+
+
+          
+
+          deleteBtn.addEventListener('click', (function(item){
+            return function(){
+              deleteItem(item)
+            }
+          })(list[i]))
+
+          editBtn.addEventListener('click', (function(item){
+            return function(){
+              editItem(item)
+            }
+          })(list[i]))  
+
+
+
+        }
+
+
+
+  }
+};
+xmlhttp.open("GET", "http://127.0.0.1:8000/student/", true);
+xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xmlhttp.send();
+}
+function deleteItem(item){
+    var Xmlhttp,response;
+      console.log('Delete clicked',item.id)
+      Xmlhttp = new XMLHttpRequest();
+Xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+     response = JSON.parse(this.responseText);
+    
+    console.log(response);
+    location.reload();
+
+
+      }}
+      Xmlhttp.open("DELETE", "http://127.0.0.1:8000/student/delete/"+item.id+"/", true);
+Xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+Xmlhttp.send();}
+
+function editItem(item){
+    var Xmlhttp,response;
+      console.log('Edit clicked',item.id)
+      sessionStorage.setItem("idedit",item.id)
+      window.location.href="editstudent"}
+
+var login=sessionStorage.getItem("login");
+        console.log(login);
+        if(login=="success")
+            {
+buildList();
+}
+
+    
+
+else
+{
+    window.location.href="loginteacher.html";
+}
+
+function logout()
+{
+    sessionStorage.setItem("login","failed");
+    window.location.href="loginteacher.html";
+
+}
+
+
+</script>
+
+
+</head>
+</html>
