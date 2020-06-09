@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 import json
 from .models import Users
-from django.views.decorators.csrf import csrf_exempt
+
 from studentdetails.models import StudentDetail
 
 

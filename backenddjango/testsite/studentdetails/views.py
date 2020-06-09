@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import StudentDetail
 from login.models import Users
 from django.http import JsonResponse,HttpResponse
-from django.views.decorators.csrf import csrf_exempt
+
 import json
 
 def StudentView(request):
