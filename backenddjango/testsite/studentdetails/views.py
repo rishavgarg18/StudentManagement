@@ -9,7 +9,7 @@ def StudentView(request):
     if request.method=="GET":
         queryset = StudentDetail.objects.filter(status="Active").values()
         return JsonResponse( list(queryset),safe=False)
-@csrf_exempt
+
 def AddStudent(request):
     if request.method=="POST":
         
@@ -30,14 +30,14 @@ def AddStudent(request):
         user=Users(username=user_name,password=password,id_type="student")
         user.save()
         return JsonResponse("success",safe=False)
-@csrf_exempt
+
 def DeleteStudent(request,pk):
     if request.method=="DELETE":
 
          instance = StudentDetail.objects.filter(id=pk).update(status="Deactive")
          return  JsonResponse("Succesfully Deactivated",safe=False)
 
-@csrf_exempt
+
 def StudentOne(request,id):
      if request.method=="GET":
         
@@ -45,7 +45,7 @@ def StudentOne(request,id):
         return JsonResponse( list(details),safe=False)
 
 
-@csrf_exempt
+
 def EditStudent(request,id):
     if request.method=="POST":
         

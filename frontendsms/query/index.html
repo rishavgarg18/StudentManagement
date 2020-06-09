@@ -73,9 +73,12 @@ tr:hover {height: 60px;
       <table  id='list-wrapper'>
         <tr>
           <th>ID</th>
+          <th>USER</th>
           <th>QUERY</th>
           <th>DATE</th>
-          <th>STUDENT_ID</th>
+          <th>ROLL_NO</th>
+          <th>EMAIL</th>
+          <th>PHONE-NO</th>
           <th>STATUS</th>
           <th>ANSWER</th>
           
@@ -129,6 +132,10 @@ xmlhttp.onreadystatechange = function() {
                 ${list[i].id}
               </td>
               <td>
+                ${list[i].user_name}
+              </td>
+
+              <td>
                 ${list[i].query}
               </td>
 
@@ -137,13 +144,18 @@ xmlhttp.onreadystatechange = function() {
               </td>
 
               <td>
-                ${list[i].student_id}
+                ${list[i].roll_no}
               </td>
-
+              <td>
+                ${list[i].email}
+              </td>
+              <td>
+                ${list[i].phone_no}
+              </td>
               <td>
                 ${list[i].status}
               </td>
-
+  
               <td>
                 ${list[i].answer}
               </td>

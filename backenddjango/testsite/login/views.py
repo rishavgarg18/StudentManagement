@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from studentdetails.models import StudentDetail
 
 
-@csrf_exempt
+
 def login(request):
 	if request.method=='POST':
 		data=json.loads(request.body)

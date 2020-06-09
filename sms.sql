@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 30, 2020 at 05:31 PM
+-- Generation Time: Jun 09, 2020 at 02:38 PM
 -- Server version: 8.0.20-0ubuntu0.19.10.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.4
 
@@ -318,11 +318,11 @@ CREATE TABLE `query_query` (
 
 INSERT INTO `query_query` (`id`, `query`, `status`, `date`, `answer`, `student_id`) VALUES
 (1, 'testquery', 'DONE', '2020-05-29 05:11:51.699061', 'testqueryanswer', 19),
-(2, 'testquery', 'PENDING', '2020-05-29 05:15:40.088035', NULL, 19),
-(3, 'testquery', 'PENDING', '2020-05-29 05:18:58.132332', NULL, 21),
+(2, 'testquery', 'DONE', '2020-05-29 05:15:40.088035', 'testqueryanswer', 19),
+(3, 'testquery', 'DONE', '2020-05-29 05:18:58.132332', 'answeertest', 21),
 (4, 'testquery1', 'DONE', '2020-05-29 05:19:07.270970', 'testquery2answer', 21),
-(5, 'testquery2', 'PENDING', '2020-05-29 17:21:37.820089', NULL, 21),
-(6, 'testquery3', 'PENDING', '2020-05-29 17:22:37.075426', NULL, 19),
+(5, 'testquery2', 'DONE', '2020-05-29 17:21:37.820089', 'asnwer', 21),
+(6, 'testquery3', 'DONE', '2020-05-29 17:22:37.075426', 'answer', 19),
 (7, 'testquery4', 'PENDING', '2020-05-29 17:23:03.725843', NULL, 20),
 (8, 'testquery6', 'DONE', '2020-05-29 17:23:31.748635', 'answerlast', 19);
 
@@ -357,7 +357,7 @@ INSERT INTO `studentdetails_studentdetail` (`id`, `user_name`, `password`, `firs
 (21, 'sammer.1900290110078', 'sammer', 'sammer', 'verma', '1900290110078', 'Pankaj verma', 'sameer@gmail.com', 'X', 'ECE', '9897654321', 'Active'),
 (22, 'saksham.35', 'saksham', 'saksham', 'sahu', '35', 'pankaj', 'saksham@gmail.co', 'D', 'CSI', '1234567890', 'Active'),
 (23, 'Harsh.87', 'Harsh', 'Harsh', 'Verma', '87', 'TRIPATHI', 'harsh@gmail.com', 'E', 'ECE', '1234567890', 'Active'),
-(24, 'Vishal.12', 'Vishal', 'Vishal', 'singh', '12', 'Sameer', 'vishal@gmail.com', 'W', 'ME', '1234563332', 'Active');
+(24, 'Vishal.12', 'Vishal', 'Vishal', 'singh', '12', 'Sameer', 'vishal@gmail.com', 'W', 'MECH.', '1234563332', 'Active');
 
 --
 -- Indexes for dumped tables

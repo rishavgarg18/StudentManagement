@@ -1,33 +1,20 @@
  
+function submitfun(){
 
 
- $(document).ready(function() {
-
-    $('#myform').submit(function() {
-
-        $.ajax({
-            type: "POST",
-            url: 'http://127.0.0.1:8000/login/',
-             
-        
-    contentType: 'application/json; charset=utf-8',
-    dataType: 'json',
-        	async: false,
-            data: JSON.stringify({
-                Username: $("#username").val(),
-                Password: $("#password").val(),
-                id_type: "student"
                 
-            }),
-            
-            success: function(data)
-            {
-            	
-                console.log(data);   
-                if (data != 'Invalid Credentials') {
+                var request = new XMLHttpRequest();
+                var url = "http://127.0.0.1:8000/login/";
+                request.open("POST", url, true);
+                request.setRequestHeader("Content-Type", "application/json");
+                request.onreadystatechange = function () {
+                    if (request.readyState === 4 && request.status === 200) {
+                        var jsonData = JSON.parse(request.response);
+                        console.log(jsonData);
+                        if (jsonData != 'Invalid Credentials') {
                     sessionStorage.setItem("login","success");
 
-                    sessionStorage.setItem("idstudent",data);
+                    sessionStorage.setItem("idstudent",jsonData);
 
                     window.location.href="studenthome.html";
                     
@@ -35,12 +22,17 @@
                 }
                 else {
                     sessionStorage.setItem("login","failed");
-                    alert(data);
+                    alert(jsonData);
                 }
-            }
-        });
-        //this is mandatory other wise your from will be submitted.
-        return false; 
-    });
+                    }
+                };
+                var username =  document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+                
 
-});
+                var data = JSON.stringify({"Username": username, "Password": password,"id_type": "student"});
+                console.log(data);
+
+                request.send(data);
+
+            };  
